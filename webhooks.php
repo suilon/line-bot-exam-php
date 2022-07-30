@@ -1,5 +1,5 @@
 <?php // callback.php
-
+echo var_dump("sss");
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 
