@@ -1,19 +1,16 @@
 <?php
-
-
-
-require "vendor/autoload.php";
-
 $access_token = '5aS4sAOC/jP0u8Kp+BTChH0dRGTo5xg0PXy71//7BXPwPV0OJqgbXgcHR6ESjNUWZ9tZqR94wQw+KoHRbQG91GhJjb6F+sC8g1aSgppjPTKJwZcKH8/CxRgC+INLL1PdmKfiTUvDNdnaWjSomVXyQgdB04t89/1O/w1cDnyilFU=';
 
-$channelSecret = '11bf38fca4ce3f819dad4982b8dd9b69';
 
-$pushID = 'U8e56daa9a69d00a1ed6cd3a632bc61ca';
+$url = 'https://api.line.me/v1/oauth/verify';
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
+$headers = array('Authorization: Bearer ' . $access_token);
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello world');
-$response = $bot->pushMessage($pushID, $textMessageBuilder);
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+$result = curl_exec($ch);
+curl_close($ch);
 
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+echo $result;
